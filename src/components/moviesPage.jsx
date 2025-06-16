@@ -1,0 +1,47 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+export default function MoviesPage() {
+    const { id } = useParams();
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                const response = await fetch(`/api/movies/${id}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch movies');
+                }
+                const data = await response.json();
+                setMovies(data);
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+            }
+        };
+        fetchMovies();
+    }, [id]);
+
+    return (
+        <div className="movies-container">
+            <h1>10 Random Movies</h1>
+            <div className="movies-grid">
+                {movies.length > 0 ? (
+                    movies.map((movie) => (
+                        <div key={movie.Title} className="movie-card">
+                            <h2>{movie.Title}</h2>
+                            <img
+                                src={movie.Poster}
+                                alt={movie.Title}
+                                onError={(e) => {
+                                    e.target.src = 'https://via.placeholder.com/300x450?text=Poster+Not+Available';
+                                }}
+                            />
+                        </div>
+                    ))
+                ) : (
+                    <p>Loading movies...</p>
+                )}
+            </div>
+        </div>
+    );
+}
