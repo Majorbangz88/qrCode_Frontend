@@ -9,7 +9,7 @@ function QRPage() {
         error: null
     });
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000';
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const fetchQR = async () => {
@@ -57,7 +57,7 @@ function QRPage() {
                 <QRCodeSVG
                     value={qrData.url}
                     size={256}
-                    level="H" // High error correction
+                    level="H"
                     includeMargin={true}
                 />
             </div>
