@@ -5,10 +5,12 @@ export default function MoviesPage() {
     const { id } = useParams();
     const [movies, setMovies] = useState([]);
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const response = await fetch(`/api/movies/${id}`);
+                const response = await fetch(`${backendUrl}/api/movies/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch movies');
                 }
