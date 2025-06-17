@@ -8,7 +8,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<QrPage />} />
-          <Route path="/movies/:uuid" element={<MoviesPage />} />
+          <Route path="/movies/:id" element={<MoviesPage />} />
         </Routes>
       </Router>
   );

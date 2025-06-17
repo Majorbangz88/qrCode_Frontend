@@ -8,16 +8,20 @@ export default function MoviesPage() {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
-        console.log(`Fetching from: ${backendUrl}/movies/${id}`);
+        console.log(`Fetching from: ${backendUrl}/api/movies/${id}`);
         const fetchMovies = async () => {
             try {
-                const response = await fetch(`${backendUrl}/movies/${id}`);
-                if (!response.ok) throw new Error('Failed to fetch');
+                const response = await fetch(`${backendUrl}/api/movies/${id}`);
 
-                const movies = await response.json();
-                setMovies(movies);
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch movies');
+                }
+                const data = await response.json();
+                setMovies(data);
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error fetching movies:', error);
             }
         };
         fetchMovies();
